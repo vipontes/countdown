@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">CountDown</string>
+    <string name="hint_minute">Minute</string>
+    <string name="hint_alert">Minutes to alert</string>
+    <string name="message_minutes">Please Enter Minutes...</string>
+</resources>
