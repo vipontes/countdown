@@ -48,12 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-        // method call to initialize the views
         initViews();
-        // method call to initialize the listeners
         initListeners();
     }
 
@@ -90,30 +86,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void startStop() {
         if (timerStatus == TimerStatus.STOPPED) {
-            // call to initialize the timer values
             setTimerValues();
-            // call to initialize the progress bar values
             setProgressBarValues();
-            // showing the reset icon
             imageViewReset.setVisibility(View.VISIBLE);
             editTextAlert.setVisibility(View.GONE);
-            // changing play icon to stop icon
             imageViewStartStop.setImageResource(R.drawable.icon_stop);
-            // making edit text not editable
             editTextMinute.setEnabled(false);
-            // changing the timer status to started
             timerStatus = TimerStatus.STARTED;
-            // call to start the count down timer
             startCountDownTimer();
         } else {
-            // hiding the reset icon
             imageViewReset.setVisibility(View.GONE);
             editTextAlert.setVisibility(View.VISIBLE);
-            // changing stop icon to start icon
             imageViewStartStop.setImageResource(R.drawable.icon_start);
-            // making edit text editable
             editTextMinute.setEnabled(true);
-            // changing the timer status to stopped
             timerStatus = TimerStatus.STOPPED;
             stopCountDownTimer();
         }
@@ -124,10 +109,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int time = 0;
         alertSent = false;
         if (!editTextMinute.getText().toString().isEmpty()) {
-            // fetching value from edit text and type cast to integer
             time = Integer.parseInt(editTextMinute.getText().toString().trim());
         } else {
-            // toast message to fill edit text
             Toast.makeText(getApplicationContext(), getString(R.string.message_minutes), Toast.LENGTH_LONG).show();
         }
 
@@ -138,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             alertInSeconds = 0;
         }
 
-        // assigning values after converting to milliseconds
         timeCountInMilliSeconds = time * 60 * 1000;
     }
 
@@ -155,11 +137,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (timeToFinish == alertInSeconds && !alertSent) {
                         alertSent = true;
                         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                        // Vibrate for 500 milliseconds
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             v.vibrate(createOneShot(500, DEFAULT_AMPLITUDE));
                         } else {
-                            //deprecated in API 26
                             v.vibrate(500);
                         }
                     }
@@ -177,15 +157,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 textViewTime.setText(hmsTimeFormatter(timeCountInMilliSeconds));
-                // call to initialize the progress bar values
                 setProgressBarValues();
-                // hiding the reset icon
                 imageViewReset.setVisibility(View.GONE);
-                // changing stop icon to start icon
                 imageViewStartStop.setImageResource(R.drawable.icon_start);
-                // making edit text editable
                 editTextMinute.setEnabled(true);
-                // changing the timer status to stopped
                 timerStatus = TimerStatus.STOPPED;
             }
 
